@@ -1,0 +1,6 @@
+step 1)	Copy Project...
+
+step 2) Install Python...
+
+step 4) Install Requirements
+pip3 install requirements.txt
