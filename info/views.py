@@ -32,18 +32,13 @@ class ShopInfoView(generics.CreateAPIView):
             owner_email = request.data.get('owner_email')
             owner_address = request.data.get('owner_address')
 
-            # if (shop_image == ""):
-            #     shop_image = "images/logo.png"
-            # if (shop_image == None):
-            #     shop_image = "images/logo.png"
-
             shop_data = {
                 "shop_name": shop_name,
                 "shop_contact": shop_contact,
                 "shop_email": shop_email,
                 "shop_address": shop_address,
                 "shop_type": shop_type,
-                "shop_image":shop_image,
+                "shop_image": shop_image,
                 "shop_description": shop_description,
                 "owner_name": owner_name,
                 "owner_contact": owner_contact,
@@ -51,22 +46,10 @@ class ShopInfoView(generics.CreateAPIView):
                 "owner_address": owner_address,
             }
 
-            ShopSerializer = ShopInfoSerializer(data = shop_data)
+            ShopSerializer = ShopInfoSerializer(data=shop_data)
             if ShopSerializer.is_valid(raise_exception=True):
                 ShopSerializer.save()
 
-                # shopObj = ShopSerializer.save()
-                # shopId = ShopInfo.objects.all().last()
-                # sid = str(shopId.shop_id)
-                # shopObj = ShopInfo.objects.filter(shop_id=sid)
-                # if 'shop_image' in request.data:
-                #     image_data = request.data.get('shop_image')
-                #     format, imgstr = image_data.split(';base64,')
-                #     ext = format.split('/')[-1]
-                #     data = ContentFile(base64.b64decode(imgstr))
-                #     file_name = shop_type + "_" + str(random.randint(1, 100))+ext
-                #     shopObj[0].shop_image.save(file_name, data, save=True)
-                # ShopSerializer = ShopInfoSerializer(shopObj[0])
                 dic = {
                     "Type": "Success",
                     "Message": "Shop added successfully",
@@ -74,9 +57,9 @@ class ShopInfoView(generics.CreateAPIView):
                 }
             else:
                 dic = {
-                "Type": "Error",
-                "Message": "Shop added unsuccessfully",
-                "data": ""
+                    "Type": "Error",
+                    "Message": "Shop added unsuccessfully",
+                    "data": ""
                 }
 
             return Response(data=dic, status=status.HTTP_201_CREATED)
@@ -102,3 +85,47 @@ class GetList(generics.ListAPIView):
             "data": list(shop_lists),
         }
         return Response(data=dic, status=status.HTTP_201_CREATED)
+
+
+class ContactUsView(generics.CreateAPIView):
+    """ To contact """
+
+    def post(self, request):
+        try:
+            fname = request.data.get('fname')
+            lname = request.data.get('lname')
+            email = request.data.get('email')
+            comment = request.data.get('comment')
+
+            contact_data = {
+                "fname": fname,
+                "lname": lname,
+                "email": email,
+                "comment": comment,
+            }
+
+            ContactSerializer = ContactUsSerializer(data=contact_data)
+            if ContactSerializer.is_valid(raise_exception=True):
+                ContactSerializer.save()
+
+                dic = {
+                    "Type": "Success",
+                    "Message": "Message added successfully",
+                    "data": ContactSerializer.data
+                }
+            else:
+                dic = {
+                    "Type": "Error",
+                    "Message": "Message added unsuccessfully",
+                    "data": ""
+                }
+
+            return Response(data=dic, status=status.HTTP_201_CREATED)
+        except ValidationError as e:
+            print(e)
+            dic = {
+                "Type": "Error",
+                "Message": "Message added unsuccessfully",
+                "data": e.detail
+            }
+            return Response(data=dic, status=status.HTTP_201_CREATED)
