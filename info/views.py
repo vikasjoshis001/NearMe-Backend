@@ -86,7 +86,19 @@ class GetList(generics.ListAPIView):
         }
         return Response(data=dic, status=status.HTTP_201_CREATED)
 
-
+class GetShop(generics.ListAPIView):
+    def get(self, request, **kwargs):
+        shop_id = request.query_params['shop_id']
+        shop_lists = []
+        shop_lists = ShopInfo.objects.filter(shop_id=shop_id).values()
+        print(list(shop_lists))
+        dic = {
+            "Type": "Success",
+            "Message": "Shop listed successfully",
+            "data": list(shop_lists),
+        }
+        return Response(data=dic, status=status.HTTP_201_CREATED)
+    
 class ContactUsView(generics.CreateAPIView):
     """ To contact """
 

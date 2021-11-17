@@ -19,12 +19,13 @@ from django.conf import settings
 from django.contrib.staticfiles.urls import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import path
-from info.views import ShopInfoView,GetList,ContactUsView
+from info.views import ShopInfoView,GetList,ContactUsView,GetShop
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('shop/',ShopInfoView.as_view()),
     path('getshops/',GetList.as_view()),  
+    path('shopdetails/',GetShop.as_view()),  
     path('contact/',ContactUsView.as_view()),  
 ] 
 urlpatterns += staticfiles_urlpatterns()
