@@ -254,7 +254,6 @@ traitlets==5.0.5
 tzlocal==2.0.0
 Unidecode==1.1.2
 uritemplate==3.0.1
-urllib3==1.26.5
 vsts==0.1.25
 vsts-cd-manager==1.0.2
 watermark==2.1.0
