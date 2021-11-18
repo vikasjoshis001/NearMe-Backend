@@ -25,7 +25,7 @@ SECRET_KEY = ')jlw@hdo^fz5rzxs$=^j1_+@f48_pi8ou@_np3ts-w8*zvsb%2'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["nearest-me.herokuapp.com","127.0.0.1:8000"]
+ALLOWED_HOSTS = ["nearest-me.herokuapp.com","127.0.0.1"]
 CORS_ORIGIN_ALLOW_ALL = True
 
 
@@ -81,23 +81,23 @@ WSGI_APPLICATION = 'nearme_backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
-
 DATABASES = {
-        'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'Shops',
-        'USER': 'vikas',
-        'PASSWORD': 'vikas',
-        'HOST': 'localhost',
-        'PORT': 3306,
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
+
+# DATABASES = {
+#         'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'Shops',
+#         'USER': 'vikas',
+#         'PASSWORD': 'vikas',
+#         'HOST': 'localhost',
+#         'PORT': 3306,
+#     }
+# }
 
 
 # Password validation
