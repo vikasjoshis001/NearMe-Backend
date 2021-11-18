@@ -25,7 +25,7 @@ SECRET_KEY = ')jlw@hdo^fz5rzxs$=^j1_+@f48_pi8ou@_np3ts-w8*zvsb%2'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["https://nearest-me.herokuapp.com/","http://127.0.0.1:8000/"]
+ALLOWED_HOSTS = ["nearest-me.herokuapp.com","127.0.0.1:8000"]
 CORS_ORIGIN_ALLOW_ALL = True
 
 
