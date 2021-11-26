@@ -19,14 +19,17 @@ from django.conf import settings
 from django.contrib.staticfiles.urls import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.urls import path
-from info.views import ShopInfoView,GetList,ContactUsView,GetShop
+from info.views import ShopInfoView, GetList, ContactUsView, GetShop
+from signup.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('shop/',ShopInfoView.as_view()),
-    path('getshops/',GetList.as_view()),  
-    path('shopdetails/',GetShop.as_view()),  
-    path('contact/',ContactUsView.as_view()),  
-] 
+    path('shop/', ShopInfoView.as_view()),
+    path('getshops/', GetList.as_view()),
+    path('shopdetails/', GetShop.as_view()),
+    path('contact/', ContactUsView.as_view()),
+    path('signup/', RegistrationView.as_view()),
+    path('signin/', LoginView.as_view())
+]
 urlpatterns += staticfiles_urlpatterns()
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

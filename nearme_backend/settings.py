@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'info',
     'rest_framework',
     'corsheaders',
+    'signup',
 
 ]
 
