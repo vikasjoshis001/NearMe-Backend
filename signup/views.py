@@ -1,3 +1,4 @@
+from django import db
 from django.conf import settings
 from django.contrib.auth.hashers import make_password
 from rest_framework import generics
@@ -9,7 +10,7 @@ import os
 import random
 from django.core.mail import EmailMessage
 from django.core.mail import send_mail
-
+from info.models import *
 # Create your views here.
 
 
@@ -102,9 +103,37 @@ class LoginView(generics.CreateAPIView):
             pwdhash = binascii.hexlify(pwdhash).decode('ascii')
 
             if(pwdhash == data.password):
+                owner_datas = list(
+                    OwnerInfo.objects.filter(owner_email=email).values_list(
+                        'owner_shop', flat=True
+                    )
+                )
+                my_shops = []
+                # print("A")
+                # for i in range(len(owner_datas)):
+                shop_datas = list(
+                    ShopInfo.objects.filter(shop_id=owner_datas[i]).values_list(
+                        'shop_name', 'shop_contact', 'shop_type'
+                    )
+                )
+                    # print(shop_datas[0])
+                    # my_shops.add(shop_datas[0])
+                    # print(my_shops)
+                print("B")
+                profile_datas = list(
+                    Registration.objects.filter(email=email).values_list(
+                        'name', 'contact', 'email'
+                    )
+                )
+
+                print(shop_datas)
+                print(owner_datas)
                 dic = {
                     "msg": "Login Successfull",
-                    "name": settings.username
+                    "name": settings.username,
+                    "owner": owner_datas,
+                    "shop": shop_datas,
+                    "profile":profile_datas
                 }
         except:
             dic = {
