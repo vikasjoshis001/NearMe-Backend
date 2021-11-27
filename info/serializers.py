@@ -7,6 +7,12 @@ class ShopInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = ShopInfo
         fields = '__all__'
+        
+class OwnerInfoSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = OwnerInfo
+        fields = '__all__'
 
 
 class ContactUsSerializer(serializers.ModelSerializer):

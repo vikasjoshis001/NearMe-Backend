@@ -93,6 +93,7 @@ class LoginView(generics.CreateAPIView):
         }
         try:
             data = Registration.objects.get(email=email)
+            print(data)
             settings.username = data.name
             salt = data.password[:64]
             data.password = data.password[64:]

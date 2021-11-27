@@ -17,13 +17,23 @@ class ShopInfo(models.Model):
     shop_image = models.FileField(
         upload_to='images/', null=True, blank=True, default="media/images/logo.png")
 
+    def __int__(self):
+        return self.shop_id
+    
+    
+class OwnerInfo(models.Model):
+    """ A custom shop """
+
+    owner_id = models.AutoField(primary_key=True)
+
+    owner_shop = models.ForeignKey(ShopInfo,on_delete=models.CASCADE)
     owner_name = models.CharField(max_length=50, blank=True, null=True)
     owner_contact = models.CharField(max_length=10, blank=True, null=True)
     owner_email = models.CharField(max_length=50, blank=True, null=True)
     owner_address = models.CharField(max_length=50, blank=True, null=True)
 
     def __str__(self):
-        return self.shop_name
+        return self.owner_name
 
 
 class ContactUs(models.Model):

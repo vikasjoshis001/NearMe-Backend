@@ -39,22 +39,30 @@ class ShopInfoView(generics.CreateAPIView):
                 "shop_address": shop_address,
                 "shop_type": shop_type,
                 "shop_image": shop_image,
-                "shop_description": shop_description,
-                "owner_name": owner_name,
-                "owner_contact": owner_contact,
-                "owner_email": owner_email,
-                "owner_address": owner_address,
+                "shop_description": shop_description
             }
 
             ShopSerializer = ShopInfoSerializer(data=shop_data)
             if ShopSerializer.is_valid(raise_exception=True):
                 ShopSerializer.save()
-
+                shop_id = ShopInfo.objects.latest('shop_id')
+                print(shop_id)
+                shop_data = {
+                    "owner_shop": shop_id,
+                    "owner_name": owner_name,
+                    "owner_contact": owner_contact,
+                    "owner_email": owner_email,
+                    "owner_address": owner_address,
+                }
+                OwnerSerializer = OwnerInfoSerializer(data=shop_data)
+                if OwnerSerializer.is_valid(raise_exception=True):
+                    OwnerSerializer.save()
                 dic = {
                     "Type": "Success",
                     "Message": "Shop added successfully",
                     "data": ShopSerializer.data
                 }
+
             else:
                 dic = {
                     "Type": "Error",
@@ -86,6 +94,7 @@ class GetList(generics.ListAPIView):
         }
         return Response(data=dic, status=status.HTTP_201_CREATED)
 
+
 class GetShop(generics.ListAPIView):
     def get(self, request, **kwargs):
         shop_id = request.query_params['shop_id']
@@ -98,7 +107,8 @@ class GetShop(generics.ListAPIView):
             "data": list(shop_lists),
         }
         return Response(data=dic, status=status.HTTP_201_CREATED)
-    
+
+
 class ContactUsView(generics.CreateAPIView):
     """ To contact """
 
