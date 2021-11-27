@@ -108,11 +108,11 @@ class LoginView(generics.CreateAPIView):
                         'owner_shop', flat=True
                     )
                 )
-                my_shops = []
-                # print("A")
+                # my_shops = []
+                print("A")
                 # for i in range(len(owner_datas)):
                 shop_datas = list(
-                    ShopInfo.objects.filter(shop_id=owner_datas[i]).values_list(
+                    ShopInfo.objects.filter(shop_id=owner_datas[0]).values_list(
                         'shop_name', 'shop_contact', 'shop_type'
                     )
                 )
