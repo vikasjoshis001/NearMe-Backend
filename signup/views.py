@@ -87,29 +87,29 @@ class LoginView(generics.CreateAPIView):
             pwdhash = binascii.hexlify(pwdhash).decode('ascii')
 
             if(pwdhash == data.password):
-                owner_datas = list(
-                    OwnerInfo.objects.filter(owner_email=email).values_list(
-                        'owner_shop', flat=True
-                    )
-                )
-                shop_datas = list(
-                    ShopInfo.objects.filter(shop_id=owner_datas[0]).values_list(
-                        'shop_name', 'shop_contact', 'shop_type'
-                    )
-                )
-                profile_datas = list(
-                    Registration.objects.filter(email=email).values_list(
-                        'name', 'contact', 'email'
-                    )
-                )
+                # owner_datas = list(
+                #     OwnerInfo.objects.filter(owner_email=email).values_list(
+                #         'owner_shop', flat=True
+                #     )
+                # )
+                # shop_datas = list(
+                #     ShopInfo.objects.filter(shop_id=owner_datas[0]).values_list(
+                #         'shop_name', 'shop_contact', 'shop_type'
+                #     )
+                # )
+                # profile_datas = list(
+                #     Registration.objects.filter(email=email).values_list(
+                #         'name', 'contact', 'email'
+                #     )
+                # )
                 logObj = LogIn.objects.filter(login_name="New Login")
                 logObj.update(isLoggedIn=True)
                 dic = {
                     "msg": "Login Successfull",
-                    "name": settings.username,
-                    "owner": owner_datas,
-                    "shop": shop_datas,
-                    "profile": profile_datas
+                    # "name": settings.username,
+                    # "owner": owner_datas,
+                    # "shop": shop_datas,
+                    # "profile": profile_datas
                 }
         except:
             dic = {
