@@ -17,4 +17,4 @@ class LogIn(models.Model):
 
     login_id = models.AutoField(primary_key=True)
     login_name = models.CharField(max_length=30)
-    isLoggedIn = models.BooleanField(default="True")
+    isLoggedIn = models.BooleanField(default=False)
