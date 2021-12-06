@@ -86,7 +86,12 @@ class GetList(generics.ListAPIView):
         type = request.query_params['type']
         shop_lists = []
         shop_lists = ShopInfo.objects.filter(shop_type=type).values()
-        print(list(shop_lists))
+        # print(list(shop_lists))
+        # owner_lists = []
+        # owner_lists = OwnerInfo.objects.filter(owner_shop=shop_lists[0]['shop_id']).values()
+        # print(list(owner_lists))
+        # new_lists = list(shop_lists) + list(owner_lists)
+        # print(new_lists)
         dic = {
             "Type": "Success",
             "Message": "Shop listed successfully",

@@ -106,11 +106,13 @@ class LoginView(generics.CreateAPIView):
                 #         'name', 'contact', 'email'
                 #     )
                 # )
-                logObj = LogIn.objects.filter(login_name="New Login")
+                logObj = LogIn.objects.filter(login_id=1)
+                print('A')
                 logObj.update(isLoggedIn=True,login_name = newmail[0])
+                print('B')
                 dic = {
                     "msg": "Login Successfull",
-                    "name": settings.username,
+                    "name": newmail[0],
                     # "owner": owner_datas,
                     # "shop": shop_datas,
                     # "profile": profile_datas
@@ -125,7 +127,8 @@ class LoginView(generics.CreateAPIView):
 class IsLoggedInView(generics.CreateAPIView):
 
     def get(self, request, **kwargs):
-        logObj = LogIn.objects.get(login_name="New Login")
+        print(settings.username)
+        logObj = LogIn.objects.get(login_id=1)
         dic = {
             "msg": logObj.isLoggedIn,
             "name": logObj.login_name
@@ -136,9 +139,9 @@ class IsLoggedInView(generics.CreateAPIView):
 class LogOutView(generics.CreateAPIView):
 
     def get(self, request, **kwargs):
-        logObj = LogIn.objects.filter(login_name="New Login")
-        logObj.update(isLoggedIn=False)
-        logObjs = LogIn.objects.get(login_name="New Login")
+        logObj = LogIn.objects.filter(login_id=1)
+        logObj.update(isLoggedIn=False,login_name="New Login")
+        logObjs = LogIn.objects.get(login_id=1)
         dic = {
             "msg": logObjs.isLoggedIn
         }
