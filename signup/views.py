@@ -107,7 +107,7 @@ class LoginView(generics.CreateAPIView):
                 #     )
                 # )
                 logObj = LogIn.objects.filter(login_name="New Login")
-                logObj.update(isLoggedIn=True)
+                logObj.update(isLoggedIn=True,login_name = newmail[0])
                 dic = {
                     "msg": "Login Successfull",
                     "name": settings.username,
@@ -128,7 +128,7 @@ class IsLoggedInView(generics.CreateAPIView):
         logObj = LogIn.objects.get(login_name="New Login")
         dic = {
             "msg": logObj.isLoggedIn,
-            "name": settings.username
+            "name": logObj.login_name
         }
         return Response(dic)
 
