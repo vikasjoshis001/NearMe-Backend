@@ -29,7 +29,9 @@ urlpatterns = [
     path('shopdetails/', GetShop.as_view()),
     path('contact/', ContactUsView.as_view()),
     path('signup/', RegistrationView.as_view()),
-    path('signin/', LoginView.as_view())
+    path('signin/', LoginView.as_view()),
+    path('isloggedin/', IsLoggedInView.as_view()),
+    path('signout/', LogOutView.as_view())
 ]
 urlpatterns += staticfiles_urlpatterns()
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

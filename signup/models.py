@@ -10,3 +10,11 @@ class Registration(models.Model):
     email = models.EmailField()
     password = models.CharField(max_length=255)
     confirm_password = models.CharField(max_length=255)
+    
+# Create your models here.
+class LogIn(models.Model):
+    """" Registration for all users """
+
+    login_id = models.AutoField(primary_key=True)
+    login_name = models.CharField(max_length=30)
+    isLoggedIn = models.BooleanField(default="True")

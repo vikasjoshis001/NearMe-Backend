@@ -61,21 +61,6 @@ class RegistrationView(generics.CreateAPIView):
                 dict = {
                     "msg": "User Registered Successfully"
                 }
-                # settings.otp = random.randint(100000, 999999)
-                # print(settings.otp)
-                # msg = "Your One Time Password for GateMaster Registeration\n\nverification code : " + \
-                #     str(settings.otp)
-                # try:
-                #     send_mail(
-                #         'GateMaster Registeration',
-                #         msg,
-                #         'crunchbase.io@gmail.com',
-                #         [email],
-                #         fail_silently=False,
-                #     )
-                # except:
-                #     print("Sorry! Mail not sent...")
-
             else:
                 print(serializer.errors)
                 dict = {
@@ -94,7 +79,6 @@ class LoginView(generics.CreateAPIView):
         }
         try:
             data = Registration.objects.get(email=email)
-            print(data)
             settings.username = data.name
             salt = data.password[:64]
             data.password = data.password[64:]
@@ -108,35 +92,48 @@ class LoginView(generics.CreateAPIView):
                         'owner_shop', flat=True
                     )
                 )
-                # my_shops = []
-                print("A")
-                # for i in range(len(owner_datas)):
                 shop_datas = list(
                     ShopInfo.objects.filter(shop_id=owner_datas[0]).values_list(
                         'shop_name', 'shop_contact', 'shop_type'
                     )
                 )
-                    # print(shop_datas[0])
-                    # my_shops.add(shop_datas[0])
-                    # print(my_shops)
-                print("B")
                 profile_datas = list(
                     Registration.objects.filter(email=email).values_list(
                         'name', 'contact', 'email'
                     )
                 )
-
-                print(shop_datas)
-                print(owner_datas)
+                logObj = LogIn.objects.filter(login_name="New Login")
+                logObj.update(isLoggedIn=False)
                 dic = {
                     "msg": "Login Successfull",
                     "name": settings.username,
                     "owner": owner_datas,
                     "shop": shop_datas,
-                    "profile":profile_datas
+                    "profile": profile_datas
                 }
         except:
             dic = {
                 "msg": "Login Unsuccessfull"
             }
+        return Response(dic)
+
+
+class IsLoggedInView(generics.CreateAPIView):
+
+    def get(self, request, **kwargs):
+        logObj = LogIn.objects.get(login_name="New Login")
+        dic = {
+            "msg": logObj.isLoggedIn
+        }
+        return Response(dic)
+
+
+class LogOutView(generics.CreateAPIView):
+
+    def post(self, request, **kwargs):
+        logObj = LogIn.objects.filter(login_name="New Login")
+        logObj.update(isLoggedIn=True)
+        dic = {
+            "msg": logObj.isLoggedIn
+        }
         return Response(dic)
