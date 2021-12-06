@@ -11,6 +11,7 @@ import random
 from django.core.mail import EmailMessage
 from django.core.mail import send_mail
 from info.models import *
+from nearme_backend import settings
 # Create your views here.
 
 
@@ -47,7 +48,7 @@ class RegistrationView(generics.CreateAPIView):
             pwdhash = binascii.hexlify(pwdhash)
             password = (salt + pwdhash).decode('ascii')
 
-            settings.user_dict = {
+            user_dict = {
                 'name': name,
                 'contact': contact,
                 'email': email,
@@ -55,7 +56,7 @@ class RegistrationView(generics.CreateAPIView):
                 'confirm_password': password,
             }
 
-            serializer = RegistrationSerializer(data=settings.user_dict)
+            serializer = RegistrationSerializer(data=user_dict)
             if serializer.is_valid():
                 serializer.save()
                 dict = {
@@ -79,7 +80,10 @@ class LoginView(generics.CreateAPIView):
         }
         try:
             data = Registration.objects.get(email=email)
-            settings.username = data.name
+            newmail = email.split('@')
+            print(newmail[0])
+            settings.username = newmail[0]
+            print(settings.username)
             salt = data.password[:64]
             data.password = data.password[64:]
             pwdhash = hashlib.pbkdf2_hmac('sha512', password.encode(
@@ -106,7 +110,7 @@ class LoginView(generics.CreateAPIView):
                 logObj.update(isLoggedIn=True)
                 dic = {
                     "msg": "Login Successfull",
-                    # "name": settings.username,
+                    "name": settings.username,
                     # "owner": owner_datas,
                     # "shop": shop_datas,
                     # "profile": profile_datas
@@ -123,7 +127,8 @@ class IsLoggedInView(generics.CreateAPIView):
     def get(self, request, **kwargs):
         logObj = LogIn.objects.get(login_name="New Login")
         dic = {
-            "msg": logObj.isLoggedIn
+            "msg": logObj.isLoggedIn,
+            "name": settings.username
         }
         return Response(dic)
 
