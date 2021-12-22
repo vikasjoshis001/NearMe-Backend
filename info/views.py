@@ -106,7 +106,7 @@ class GetShop(generics.ListAPIView):
             "Type": "Success",
             "Message": "Shop listed successfully",
             "shopData": list(shop_lists),
-            "ownerData": list(owner_lists),
+            "ownerData": list(owner_lists                                                                                                                                                                                                ),
         }
         return Response(data=dic, status=status.HTTP_201_CREATED)
 

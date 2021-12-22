@@ -11,7 +11,7 @@ class ShopInfo(models.Model):
     shop_name = models.CharField(max_length=50, blank=True, null=True)
     shop_contact = models.CharField(max_length=10, blank=True, null=True)
     shop_email = models.CharField(max_length=50, blank=True, null=True)
-    shop_address = models.CharField(max_length=50, blank=True, null=True)
+    shop_address = models.CharField(max_length=500, blank=True, null=True)
     shop_type = models.CharField(max_length=50, blank=True, null=True)
     shop_description = models.TextField(max_length=500)
     shop_image = models.FileField(
@@ -30,7 +30,7 @@ class OwnerInfo(models.Model):
     owner_name = models.CharField(max_length=50, blank=True, null=True)
     owner_contact = models.CharField(max_length=10, blank=True, null=True)
     owner_email = models.CharField(max_length=50, blank=True, null=True)
-    owner_address = models.CharField(max_length=50, blank=True, null=True)
+    owner_address = models.CharField(max_length=500, blank=True, null=True)
 
     def __str__(self):
         return self.owner_name
